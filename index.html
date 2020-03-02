@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style>
+.calc {
+	width: 25%;
+    margin: 0 auto;
+}
+table {
+	border-spacing: 0px;
+    width: 100%;
+}
+table, th, td {
+  border: 1px solid black;
+  padding: 0px;
+}
+td {
+	width: 25%;
+}
+.button {
+	height: 80px;
+    width: 100%;
+    border-style: none;
+    border-collapse: collapse;
+    color: white;
+    background-color: grey;
+    font-size: 1.5rem;
+}
+.equal {
+	height: 326px;
+}
+.button:hover {
+	opacity: 0.6;
+}
+.button:active {
+	background-color: darkgrey;
+}
+#display {
+	background-color: lightgrey;
+    height: 55px;
+    font-size: 3rem;
+    text-align: right;
+    border: 1px solid black;
+}
+#eval {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+    <div class="calc">
+    <table>
+        <div id="eval"></div>
+        <div id="display"></div>
+        <tr>
+            <td><button class="button operator" value="+" onclick="operand('+')">+</button></td>
+            <td><button class="button operator" value="-" onclick="operand('-')">-</button></td>
+            <td><button class="button operator" value="x" onclick="operand('*')">x</button></td>
+            <td><button class="button operator" value="÷" onclick="operand('/')">÷</button></td>
+        </tr>
+        <tr>
+            <td><button class="button" value="7" onclick="display('7')">7</button></td>
+            <td><button class="button" value="8" onclick="display('8')">8</button></td>
+            <td><button class="button" value="9" onclick="display('9')">9</button></td>
+            <td rowspan="4"><button class="button equal" value="=" onclick="equals()">=</button></td>
+        </tr>
+        <tr>
+            <td><button class="button" value="4" onclick="display('4')">4</button></td>
+            <td><button class="button" value="5" onclick="display('5')">5</button></td>
+            <td><button class="button" value="6" onclick="display('6')">6</button></td>
+        </tr>
+        <tr>
+            <td><button class="button" value="1" onclick="display('1')">1</button></td>
+            <td><button class="button" value="2" onclick="display('2')">2</button></td>
+            <td><button class="button" value="3" onclick="display('3')">3</button></td>
+        </tr>
+        <tr>
+            <td><button class="button" onclick="display('0')">0</button></td>
+            <td><button class="button" value=".">.</button></td>
+            <td><button class="button" value="C" onclick="reset()">AC</button></td>
+        </tr>
+    </table>
+    </div>
+
+<script>
+var x = document.getElementById("display");
+var y = document.getElementById("eval");
+
+function display(val) {
+    x.innerHTML += val;
+    y.innerHTML += val;
+}
+function reset() {
+    x.innerHTML = "";
+    y.innerHTML = "";
+}
+function operand(val) {
+    x.innerHTML = val;
+    y.innerHTML += val;
+}
+function equals() {
+    let z = eval(y.innerHTML);
+    x.innerHTML = z;
+    y.innerHTML = z;
+}
+
+
+</script>
+
+</body>
+</html>
