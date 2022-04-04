@@ -3,113 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Calculator</title>
 <style>
-.calc {
-	width: 25%;
-    margin: 0 auto;
-}
-table {
-	border-spacing: 0px;
-    width: 100%;
-}
-table, th, td {
-  border: 1px solid black;
-  padding: 0px;
-}
-td {
-	width: 25%;
-}
-.button {
-	height: 80px;
-    width: 100%;
-    border-style: none;
-    border-collapse: collapse;
-    color: white;
-    background-color: grey;
+    body {
+        background-color: lightseagreen;
+    }
+    .jumbotron {
+        padding: .5vh;
+        background-color: rgb(20, 160, 141);
+        color: white;
+    }
+    .calc {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .nav-item {
+        color: white;
+        background-color: rgb(20, 160, 141);
+    }
+    .nav-item .active {
+        background-color: rgb(20, 160, 141);
+    }
+    a {
+        color: rgb(0, 255, 200);
+    }
+    table {
+        border-spacing: 0px;
+        width: 100%;
+    }
+    table, th, td {
+    border: 2px solid rgb(0, 85, 85);
+    padding: 0px;
+    height: 100%;
+    }
+    td {
+        width: 25%;
+        height: 100%;
+    }
+    .button {
+        height: 20vh;
+        width: 100%;
+        border-style: none;
+        border-collapse: collapse;
+        color: white;
+        background-color: grey;
+        font-size: 1.5rem;
+    }
+    .equal {
+        height: 100%;
+    }
+    .button {
+        background-color: rgb(0, 148, 141);
+        color: white;
+        height: 12vh;
+    }
+    .button:hover {
+        opacity: 0.6;
+    }
+    .button:active {
+        background-color: lightgray;
+    }
+    .display {
+        background-color: lightgrey;
+        height: 55px;
+        font-size: 3rem;
+        text-align: right;
+        border: 1px solid black;
+        width: 100%;
+    }
+    .equal {
+        height: 100%;
+    }
+    #operand {
+        display: none;
+    }
+    #result {
+        width: 100%;
+        height: 55px;
+        background-color: lightgray;
+        text-align: center;
+        padding: 15px 0px;
+        font-size: 2rem;
+    }
+    #display {
+        background-color: lightgrey;
+        height: 8vh;
+        font-size: 1.5rem;
+        text-align: right;
+        border: 1px solid black;
+    }
+    #eval {
+        display: none;
+    }
+    #display, #result, .display {
+        background-color: rgb(119, 255, 226);
+        color: rgb(0, 85, 85);
+    }
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: rgb(70, 172, 149);
     font-size: 1.5rem;
-}
-.equal {
-	height: 326px;
-}
-.button:hover {
-	opacity: 0.6;
-}
-.button:active {
-	background-color: darkgrey;
-}
-#display {
-	background-color: lightgrey;
-    height: 55px;
-    font-size: 3rem;
-    text-align: right;
-    border: 1px solid black;
-}
-#eval {
-    display: none;
-}
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+    color: rgb(70, 172, 149);
+    font-size: 1.5rem;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+    color: rgb(70, 172, 149);
+    font-size: 1.5rem;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+    color: rgb(70, 172, 149);
+    font-size: 1.5rem;
+    }
+    .disable-dbl-tap-zoom {
+    touch-action: manipulation;
+    }
 </style>
 </head>
 
 <body>
-
-    <div class="calc">
-    <table>
-        <div id="eval"></div>
-        <div id="display"></div>
-        <tr>
-            <td><button class="button operator" value="+" onclick="operand('+')">+</button></td>
-            <td><button class="button operator" value="-" onclick="operand('-')">-</button></td>
-            <td><button class="button operator" value="x" onclick="operand('*')">x</button></td>
-            <td><button class="button operator" value="÷" onclick="operand('/')">÷</button></td>
-        </tr>
-        <tr>
-            <td><button class="button" value="7" onclick="display('7')">7</button></td>
-            <td><button class="button" value="8" onclick="display('8')">8</button></td>
-            <td><button class="button" value="9" onclick="display('9')">9</button></td>
-            <td rowspan="4"><button class="button equal" value="=" onclick="equals()">=</button></td>
-        </tr>
-        <tr>
-            <td><button class="button" value="4" onclick="display('4')">4</button></td>
-            <td><button class="button" value="5" onclick="display('5')">5</button></td>
-            <td><button class="button" value="6" onclick="display('6')">6</button></td>
-        </tr>
-        <tr>
-            <td><button class="button" value="1" onclick="display('1')">1</button></td>
-            <td><button class="button" value="2" onclick="display('2')">2</button></td>
-            <td><button class="button" value="3" onclick="display('3')">3</button></td>
-        </tr>
-        <tr>
-            <td><button class="button" onclick="display('0')">0</button></td>
-            <td><button class="button" value=".">.</button></td>
-            <td><button class="button" value="C" onclick="reset()">AC</button></td>
-        </tr>
-    </table>
+    <!-- Junmbotron -->
+    <div class="jumbotron text-center">
+        <h1>Calculator</h1>
+        <p>Use the tabs to change calculator type.</p> 
     </div>
 
+    <!-- Nav tabs -->
+    <div class="container">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#calc1">Button Calculator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#calc2">Type Calculator</a>
+            </li>
+        </ul>   
+    </div>
+
+    <div class="tab-content">
+        <!-- Calculator1 -->
+        <div class="container tab-pane active disable-dbl-tap-zoom" id="calc1">
+            <div class="calc">
+                <table>
+                    <div id="eval"></div>
+                    <div id="display"></div>
+                    <tr>
+                        <td><button class="button operator" value="+" onclick="operand('+')">+</button></td>
+                        <td><button class="button operator" value="-" onclick="operand('-')">-</button></td>
+                        <td><button class="button operator" value="x" onclick="operand('*')">x</button></td>
+                        <td><button class="button operator" value="÷" onclick="operand('/')">÷</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="button" value="7" onclick="display('7')">7</button></td>
+                        <td><button class="button" value="8" onclick="display('8')">8</button></td>
+                        <td><button class="button" value="9" onclick="display('9')">9</button></td>
+                        <td rowspan="4"><button class="button equal" value="=" onclick="equals()">=</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="button" value="4" onclick="display('4')">4</button></td>
+                        <td><button class="button" value="5" onclick="display('5')">5</button></td>
+                        <td><button class="button" value="6" onclick="display('6')">6</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="button" value="1" onclick="display('1')">1</button></td>
+                        <td><button class="button" value="2" onclick="display('2')">2</button></td>
+                        <td><button class="button" value="3" onclick="display('3')">3</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="button" onclick="display('0')">0</button></td>
+                        <td><button class="button" value="." onclick="display('.')">.</button></td>
+                        <td><button class="button" value="C" onclick="reset()">AC</button></td>
+                    </tr>
+                </table>
+                </div>        </div>
+
+        <!-- Calculator2 -->
+        <div class="container tab-pane fade disable-dbl-tap-zoom" id="calc2">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="calc">
+                        <table>
+                            <div id="operand"></div>
+                            <input type="text" class="display" id="num1" placeholder="Enter First Number..."><input type="text" class="display" id="num2" placeholder="Enter Second Number...">
+                            <tr>
+                                <td><button class="button operator" value="+" onclick="setOperator('+')">+</button></td>
+                                <td><button class="button operator" value="-" onclick="setOperator('-')">-</button></td>
+                                <td><button class="button operator" value="x" onclick="setOperator('*')">x</button></td>
+                                <td><button class="button operator" value="÷" onclick="setOperator('/')">÷</button></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><button class="button " value="C" onclick="reset()">C</button></td>
+                                <td colspan="2"><button class="button " value="=" onclick="calculator()">=</button></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><div id="result">Result is here</div></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+
 <script>
-var x = document.getElementById("display");
-var y = document.getElementById("eval");
+    var x = document.getElementById("num1");
+    var y = document.getElementById("num2");
+    var z = document.getElementById("operand");
+    var result = document.getElementById("result");
 
-function display(val) {
-    x.innerHTML += val;
-    y.innerHTML += val;
-}
-function reset() {
-    x.innerHTML = "";
-    y.innerHTML = "";
-}
-function operand(val) {
-    x.innerHTML = val;
-    y.innerHTML += val;
-}
-function equals() {
-    let z = eval(y.innerHTML);
-    x.innerHTML = z;
-    y.innerHTML = z;
-}
+    function calculator() {
+        switch(z.innerHTML) {
+            case "+":
+                result.innerHTML = parseFloat(x.value) + parseFloat(y.value);
+                break;
+            case "-":
+                result.innerHTML = parseFloat(x.value) - parseFloat(y.value);
+                break;
+            case "*":
+                result.innerHTML = parseFloat(x.value) * parseFloat(y.value);
+                break;
+            case "/":
+                result.innerHTML = parseFloat(x.value) / parseFloat(y.value);
+        }
 
+    }
+    function setOperator(n) {
+        z.innerHTML = n;
+    }
 
+    var xx = document.getElementById("display");
+    var yy = document.getElementById("eval");
+
+    function display(val) {
+        xx.innerHTML += val;
+        yy.innerHTML += val;
+    }
+    function operand(val) {
+        xx.innerHTML = val;
+        yy.innerHTML += val;
+    }
+    function equals() {
+        let w = eval(yy.innerHTML);
+        xx.innerHTML = w;
+        yy.innerHTML = w;
+    }
+    function reset() {
+        x.value = "";
+        y.value = "";
+        xx.innerHTML = "";
+        yy.innerHTML = "";
+        z.innerHTML = "";
+        result.innerHTML = "Result is here";
+    }
 </script>
 
 </body>
